@@ -1,10 +1,14 @@
 import React from 'react'
 import { FaWindowClose } from "react-icons/fa"
+import {useContext} from 'react'
+import MovieContext from '../contexts/MovieContext'
 
 const MovieItem = (props) => {
     
+    const {deleteMovie} = useContext(MovieContext);
+
     const clickHandler = () => {
-        props.onDeleteMovie(props.id, props.title);
+        deleteMovie(props.id, props.title);
     }
 
     return (

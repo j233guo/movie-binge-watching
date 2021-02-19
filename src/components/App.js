@@ -1,12 +1,11 @@
 import React from 'react'
 import "../css/App.css"
-import Modal from "./Modal"
-import Header from "./Header"
-import SearchBox from "./SearchBox"
-import AddMovieForm from "./AddMovieForm"
-import MovieList from "./MovieList"
-import Footer from "./Footer"
 import {useState, useEffect} from 'react'
+import MovieContext from "../contexts/MovieContext"
+import ModalContext from "../contexts/ModalContext"
+import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
+import AboutUs from '../pages/AboutUs'
+import Home from '../pages/Home'
 
 const App = () => {
     const [movies, setMovies] = useState([]);
@@ -79,14 +78,22 @@ const App = () => {
 
     return (
         <div className = "container">
-            <Modal modalState = {modal} onHide = {hideModal}/>
-            <Header onToggleAddForm = {toggleAddForm}/>
-            <SearchBox onFilter = {filterMovies}/>
-            <main>
-                <AddMovieForm addFormState = {addFormState} onAddMovie = {addMovie} />
-                <MovieList onDeleteMovie = {deleteMovie} movies = {movies}/>
-            </main>
-            <Footer/>
+            <MovieContext.Provider value={{movies, addMovie, deleteMovie, filterMovies}}>
+                <ModalContext.Provider value={{modal, hideModal, toggleAddForm, addFormState}}>
+
+                    <Router>
+                        <Switch>
+                            <Route exact path="/">
+                                <Home/>
+                            </Route>
+                            <Route path="/about-us">
+                                <AboutUs/>
+                            </Route>
+                        </Switch>
+                    </Router>
+                    
+                </ModalContext.Provider>
+            </MovieContext.Provider>  
         </div>
     )
 }

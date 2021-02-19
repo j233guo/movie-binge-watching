@@ -1,15 +1,17 @@
 import React from 'react'
 import MovieItem from "./MovieItem"
+import {useContext} from 'react'
+import MovieContext from '../contexts/MovieContext'
 
+const MovieList = () => {
 
-const MovieList = (props) => {
+    const {movies} = useContext(MovieContext);
 
     return (
         <section className="movie-list-continer">
-            {props.movies.map((movie) => (
+            {movies.map((movie) => (
                 <MovieItem key={movie.id}
                     id = {movie.id}
-                    onDeleteMovie = {props.onDeleteMovie}
                     title = {movie.title} 
                     description = {movie.description}/>
             ))}

@@ -1,7 +1,11 @@
 import React from 'react'
-import {useState} from 'react'
+import {useState, useContext} from 'react'
+import MovieContext from '../contexts/MovieContext'
 
-const SearchBox = (props) => {
+const SearchBox = () => {
+
+    const {filterMovies} = useContext(MovieContext);
+
     const [searchBox, setSearchBox] = useState("");
 
     return (
@@ -10,8 +14,8 @@ const SearchBox = (props) => {
             <form action="" className="grid grid-col-1">
                 <input placeholder="Enter Movie Title" className="form-control" type="text" id="filter"
                 value = {searchBox} onChange = {(event) => {
-                    props.onFilter(event.target.value);
                     setSearchBox(event.target.value);
+                    filterMovies(event.target.value);
                 }}/>
             </form>
     
